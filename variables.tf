@@ -93,10 +93,10 @@ variable "condition" {
   description = <<-EOT
     List of condition blocks for the listener rule. Each condition block must contain exactly one of:
       host_header         = Host header patterns to match (values or regex_values).
-      http_header         = HTTP headers to match (list, can specify multiple per condition).
+      http_header         = Single HTTP header to match. To match multiple distinct headers, use multiple condition blocks.
       http_request_method = HTTP methods to match.
       path_pattern        = Path patterns to match (values or regex_values).
-      query_string        = Query string key/value pairs to match (list, can specify multiple per condition).
+      query_string        = List of query string key/value pairs to match (repeatable within a single condition).
       source_ip           = Source IP CIDR notations to match.
   EOT
   type = list(object({
@@ -104,11 +104,11 @@ variable "condition" {
       values       = optional(list(string))
       regex_values = optional(list(string))
     }))
-    http_header = optional(list(object({
+    http_header = optional(object({
       http_header_name = string
       values           = optional(list(string))
       regex_values     = optional(list(string))
-    })))
+    }))
     http_request_method = optional(object({
       values = list(string)
     }))

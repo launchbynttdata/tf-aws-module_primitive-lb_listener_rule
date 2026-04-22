@@ -60,3 +60,4 @@ azure_env.sh
 # VS Code
 .vscode/
 .claude/*.local.json
+local_code_review.md

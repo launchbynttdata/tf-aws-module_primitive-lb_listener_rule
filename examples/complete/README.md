@@ -104,7 +104,7 @@ module "lb_listener_rule" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.10 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 6.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.22.0, < 7.0.0 |
 
 ## Providers
 
@@ -145,7 +145,7 @@ module "lb_listener_rule" {
 | <a name="input_listener_arn"></a> [listener\_arn](#input\_listener\_arn) | The ARN of the listener to which to attach the rule. If not specified, the listener created by this example is used. | `string` | `null` | no |
 | <a name="input_priority"></a> [priority](#input\_priority) | The priority for the rule between 1 and 50000. | `number` | `null` | no |
 | <a name="input_action"></a> [action](#input\_action) | List of action blocks for the listener rule. If not specified, defaults to forwarding to the target group created by this example. | `any` | `null` | no |
-| <a name="input_condition"></a> [condition](#input\_condition) | List of condition blocks for the listener rule. | <pre>list(object({<br/>    host_header = optional(object({<br/>      values       = optional(list(string))<br/>      regex_values = optional(list(string))<br/>    }))<br/>    http_header = optional(list(object({<br/>      http_header_name = string<br/>      values           = optional(list(string))<br/>      regex_values     = optional(list(string))<br/>    })))<br/>    http_request_method = optional(object({<br/>      values = list(string)<br/>    }))<br/>    path_pattern = optional(object({<br/>      values       = optional(list(string))<br/>      regex_values = optional(list(string))<br/>    }))<br/>    query_string = optional(list(object({<br/>      key   = optional(string)<br/>      value = string<br/>    })))<br/>    source_ip = optional(object({<br/>      values = list(string)<br/>    }))<br/>  }))</pre> | n/a | yes |
+| <a name="input_condition"></a> [condition](#input\_condition) | List of condition blocks for the listener rule. | <pre>list(object({<br/>    host_header = optional(object({<br/>      values       = optional(list(string))<br/>      regex_values = optional(list(string))<br/>    }))<br/>    http_header = optional(object({<br/>      http_header_name = string<br/>      values           = optional(list(string))<br/>      regex_values     = optional(list(string))<br/>    }))<br/>    http_request_method = optional(object({<br/>      values = list(string)<br/>    }))<br/>    path_pattern = optional(object({<br/>      values       = optional(list(string))<br/>      regex_values = optional(list(string))<br/>    }))<br/>    query_string = optional(list(object({<br/>      key   = optional(string)<br/>      value = string<br/>    })))<br/>    source_ip = optional(object({<br/>      values = list(string)<br/>    }))<br/>  }))</pre> | n/a | yes |
 | <a name="input_transform"></a> [transform](#input\_transform) | Configuration block that defines the transform to apply to requests matching this rule. | `any` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Map of tags to assign to the resource. | `map(string)` | `{}` | no |
 | <a name="input_region"></a> [region](#input\_region) | Region where the listener rule will be managed. Defaults to the region set in the provider configuration. | `string` | `null` | no |

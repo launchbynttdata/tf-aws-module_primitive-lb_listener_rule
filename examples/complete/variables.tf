@@ -75,11 +75,11 @@ variable "condition" {
       values       = optional(list(string))
       regex_values = optional(list(string))
     }))
-    http_header = optional(list(object({
+    http_header = optional(object({
       http_header_name = string
       values           = optional(list(string))
       regex_values     = optional(list(string))
-    })))
+    }))
     http_request_method = optional(object({
       values = list(string)
     }))
