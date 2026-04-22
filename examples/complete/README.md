@@ -28,6 +28,11 @@ resource "aws_vpc" "example" {
   tags       = var.tags
 }
 
+resource "aws_default_security_group" "default" {
+  vpc_id = aws_vpc.example.id
+  tags   = var.tags
+}
+
 resource "aws_subnet" "a" {
   vpc_id            = aws_vpc.example.id
   cidr_block        = "10.0.1.0/24"

@@ -87,6 +87,23 @@ variable "action" {
       })))
     }))
   }))
+
+  validation {
+    condition = alltrue([
+      for a in var.action : contains(
+        ["forward", "redirect", "fixed-response", "authenticate-cognito", "authenticate-oidc", "jwt-validation"],
+        a.type
+      )
+    ])
+    error_message = "Each action.type must be one of: forward, redirect, fixed-response, authenticate-cognito, authenticate-oidc, jwt-validation."
+  }
+
+  validation {
+    condition = alltrue([
+      for a in var.action : a.redirect == null ? true : contains(["HTTP_301", "HTTP_302"], a.redirect.status_code)
+    ])
+    error_message = "Each action.redirect.status_code must be HTTP_301 or HTTP_302."
+  }
 }
 
 variable "condition" {
@@ -149,6 +166,11 @@ variable "transform" {
     }))
   })
   default = null
+
+  validation {
+    condition     = var.transform == null ? true : contains(["host-header-rewrite", "url-rewrite"], var.transform.type)
+    error_message = "transform.type must be host-header-rewrite or url-rewrite."
+  }
 }
 
 variable "tags" {
