@@ -111,18 +111,12 @@ module "lb_listener_rule" {
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.10 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.22.0, < 7.0.0 |
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.41.0 |
-
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_resource_names"></a> [resource\_names](#module\_resource\_names) | terraform.registry.launch.nttdata.com/module_library/resource_name/launch | ~> 2.0 |
 | <a name="module_lb_listener_rule"></a> [lb\_listener\_rule](#module\_lb\_listener\_rule) | ../.. | n/a |
+| <a name="module_resource_names"></a> [resource\_names](#module\_resource\_names) | terraform.registry.launch.nttdata.com/module_library/resource_name/launch | ~> 2.0 |
 
 ## Resources
 
@@ -141,27 +135,27 @@ module "lb_listener_rule" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_logical_product_family"></a> [logical\_product\_family](#input\_logical\_product\_family) | Logical product family for resource naming. | `string` | `"launch"` | no |
-| <a name="input_logical_product_service"></a> [logical\_product\_service](#input\_logical\_product\_service) | Logical product service for resource naming. | `string` | `"lbrule"` | no |
+| <a name="input_action"></a> [action](#input\_action) | List of action blocks for the listener rule. If not specified, defaults to forwarding to the target group created by this example. | `any` | `null` | no |
 | <a name="input_class_env"></a> [class\_env](#input\_class\_env) | Environment class for resource naming. | `number` | `0` | no |
+| <a name="input_condition"></a> [condition](#input\_condition) | List of condition blocks for the listener rule. | <pre>list(object({<br/>    host_header = optional(object({<br/>      values       = optional(list(string))<br/>      regex_values = optional(list(string))<br/>    }))<br/>    http_header = optional(object({<br/>      http_header_name = string<br/>      values           = optional(list(string))<br/>      regex_values     = optional(list(string))<br/>    }))<br/>    http_request_method = optional(object({<br/>      values = list(string)<br/>    }))<br/>    path_pattern = optional(object({<br/>      values       = optional(list(string))<br/>      regex_values = optional(list(string))<br/>    }))<br/>    query_string = optional(list(object({<br/>      key   = optional(string)<br/>      value = string<br/>    })))<br/>    source_ip = optional(object({<br/>      values = list(string)<br/>    }))<br/>  }))</pre> | n/a | yes |
 | <a name="input_instance_env"></a> [instance\_env](#input\_instance\_env) | Environment instance number for resource naming. | `number` | `0` | no |
 | <a name="input_instance_resource"></a> [instance\_resource](#input\_instance\_resource) | Resource instance number for resource naming. | `number` | `0` | no |
-| <a name="input_resource_names_map"></a> [resource\_names\_map](#input\_resource\_names\_map) | Map of resource names to create via the resource naming module. | <pre>map(object({<br/>    name       = string<br/>    max_length = number<br/>  }))</pre> | <pre>{<br/>  "alb": {<br/>    "max_length": 32,<br/>    "name": "alb"<br/>  },<br/>  "tg": {<br/>    "max_length": 32,<br/>    "name": "tg"<br/>  }<br/>}</pre> | no |
 | <a name="input_listener_arn"></a> [listener\_arn](#input\_listener\_arn) | The ARN of the listener to which to attach the rule. If not specified, the listener created by this example is used. | `string` | `null` | no |
+| <a name="input_logical_product_family"></a> [logical\_product\_family](#input\_logical\_product\_family) | Logical product family for resource naming. | `string` | `"launch"` | no |
+| <a name="input_logical_product_service"></a> [logical\_product\_service](#input\_logical\_product\_service) | Logical product service for resource naming. | `string` | `"lbrule"` | no |
 | <a name="input_priority"></a> [priority](#input\_priority) | The priority for the rule between 1 and 50000. | `number` | `null` | no |
-| <a name="input_action"></a> [action](#input\_action) | List of action blocks for the listener rule. If not specified, defaults to forwarding to the target group created by this example. | `any` | `null` | no |
-| <a name="input_condition"></a> [condition](#input\_condition) | List of condition blocks for the listener rule. | <pre>list(object({<br/>    host_header = optional(object({<br/>      values       = optional(list(string))<br/>      regex_values = optional(list(string))<br/>    }))<br/>    http_header = optional(object({<br/>      http_header_name = string<br/>      values           = optional(list(string))<br/>      regex_values     = optional(list(string))<br/>    }))<br/>    http_request_method = optional(object({<br/>      values = list(string)<br/>    }))<br/>    path_pattern = optional(object({<br/>      values       = optional(list(string))<br/>      regex_values = optional(list(string))<br/>    }))<br/>    query_string = optional(list(object({<br/>      key   = optional(string)<br/>      value = string<br/>    })))<br/>    source_ip = optional(object({<br/>      values = list(string)<br/>    }))<br/>  }))</pre> | n/a | yes |
-| <a name="input_transform"></a> [transform](#input\_transform) | Configuration block that defines the transform to apply to requests matching this rule. | `any` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Map of tags to assign to the resource. | `map(string)` | `{}` | no |
 | <a name="input_region"></a> [region](#input\_region) | Region where the listener rule will be managed. Defaults to the region set in the provider configuration. | `string` | `null` | no |
+| <a name="input_resource_names_map"></a> [resource\_names\_map](#input\_resource\_names\_map) | Map of resource names to create via the resource naming module. | <pre>map(object({<br/>    name       = string<br/>    max_length = number<br/>  }))</pre> | <pre>{<br/>  "alb": {<br/>    "max_length": 32,<br/>    "name": "alb"<br/>  },<br/>  "tg": {<br/>    "max_length": 32,<br/>    "name": "tg"<br/>  }<br/>}</pre> | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Map of tags to assign to the resource. | `map(string)` | `{}` | no |
+| <a name="input_transform"></a> [transform](#input\_transform) | Configuration block that defines the transform to apply to requests matching this rule. | `any` | `null` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_id"></a> [id](#output\_id) | The ID of the listener rule (same as the ARN). |
 | <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the listener rule. |
-| <a name="output_tags_all"></a> [tags\_all](#output\_tags\_all) | A map of tags assigned to the resource, including those inherited from the provider default\_tags. |
+| <a name="output_id"></a> [id](#output\_id) | The ID of the listener rule (same as the ARN). |
 | <a name="output_listener_arn"></a> [listener\_arn](#output\_listener\_arn) | The ARN of the listener used by this example. |
+| <a name="output_tags_all"></a> [tags\_all](#output\_tags\_all) | A map of tags assigned to the resource, including those inherited from the provider default\_tags. |
 | <a name="output_target_group_arn"></a> [target\_group\_arn](#output\_target\_group\_arn) | The ARN of the target group used by this example. |
 <!-- END_TF_DOCS -->
