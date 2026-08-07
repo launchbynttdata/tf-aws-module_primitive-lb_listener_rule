@@ -24,9 +24,9 @@ func getELBv2Client(t *testing.T) *elbv2.Client {
 func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 	client := getELBv2Client(t)
 
-	ruleArn := terraform.Output(t, ctx.TerratestTerraformOptions(), "arn")
-	ruleId := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
-	targetGroupArn := terraform.Output(t, ctx.TerratestTerraformOptions(), "target_group_arn")
+	ruleArn := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "arn")
+	ruleId := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "id")
+	targetGroupArn := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "target_group_arn")
 
 	// id and arn should be the same value
 	assert.Equal(t, ruleArn, ruleId, "id and arn should be equal")
@@ -85,9 +85,9 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 func TestComposableCompleteReadonly(t *testing.T, ctx types.TestContext) {
 	client := getELBv2Client(t)
 
-	ruleArn := terraform.Output(t, ctx.TerratestTerraformOptions(), "arn")
-	ruleId := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
-	targetGroupArn := terraform.Output(t, ctx.TerratestTerraformOptions(), "target_group_arn")
+	ruleArn := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "arn")
+	ruleId := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "id")
+	targetGroupArn := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "target_group_arn")
 
 	// id and arn should be the same value
 	assert.Equal(t, ruleArn, ruleId, "id and arn should be equal")
