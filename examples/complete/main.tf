@@ -41,7 +41,7 @@ resource "aws_subnet" "b" {
 }
 
 resource "aws_lb" "example" {
-  name               = module.resource_names["alb"].standard
+  name               = module.resource_names["alb"].minimal_random_suffix
   internal           = true
   load_balancer_type = "application"
   subnets            = [aws_subnet.a.id, aws_subnet.b.id]
@@ -49,7 +49,7 @@ resource "aws_lb" "example" {
 }
 
 resource "aws_lb_target_group" "example" {
-  name     = module.resource_names["tg"].standard
+  name     = module.resource_names["tg"].minimal_random_suffix
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.example.id
